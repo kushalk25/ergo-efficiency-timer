@@ -22,16 +22,16 @@
         android:id="@+id/stateText"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="78dp" />
+        android:textSize="40dp" />
 
     <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="start Timer"
         android:id="@+id/timerToggle"
-        android:layout_below="@+id/stateText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="86dp" />
+        android:layout_marginBottom="141dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -39,9 +39,43 @@
         android:inputType="time"
         android:ems="10"
         android:id="@+id/timeText"
-        android:layout_below="@+id/timerToggle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp"
         android:text="500"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_alignTop="@+id/timerToggle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0:00:00"
+        android:id="@+id/currentTimeView"
+        android:textSize="50dp"
+        android:layout_below="@+id/stateText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Total Time Left:"
+        android:id="@+id/textView2"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/timerToggle"
+        android:layout_alignEnd="@+id/timerToggle"
+        android:layout_marginRight="31dp"
+        android:layout_marginEnd="31dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0:00:00"
+        android:id="@+id/overallTimeView"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2" />
+
 </RelativeLayout>

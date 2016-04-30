@@ -11,17 +11,30 @@ import android.widget.Toast;
 /**
  * Created by owner on 4/26/2016.
  */
+
 public class Timer {
     boolean timerOn = false;
-    Runnable runable;
+  //  Runnable runable;
     long currentTimeRemaining;
     long overallTimeRemaining;
+
+    int overallHour;
+    int currentHour;
+    int overallMinute;
+    int currentMinute;
+    int overallSecond;
+    int currentSecond;
+
 
     int shortBreakLength;
     int longBreakLength;
     int sprintLength;
     int longBreakFrequency;
     int longBreakCountDown;
+
+
+
+
     boolean inSprint;
 
 
@@ -41,23 +54,33 @@ public class Timer {
         this.longBreakCountDown = this.longBreakFrequency;
         this.inSprint = true;
 
+
+        this.overallHour = 30;
+        this.currentHour = 22;
+        this.overallMinute =22;
+        this.currentMinute = 33;
+        this.overallSecond = 23;
+        this.currentSecond = 23;
+
+
         this.currentTimeRemaining = this.sprintLength;
 
 
+        /*
         this.runable = new Runnable(){
             @Override
             public void run() {
              //   Log.d("KUSH", "HELLO from the handler");
 
-
-
                 if(overallTimeRemaining > 0 && timerOn){
-
-
 
                     if(currentTimeRemaining > 0){
                         EditText timeText = (EditText) activity.findViewById(R.id.timeText);
                         timeText.setText(""+currentTimeRemaining);
+
+                //        TextView state = (TextView) activity.findViewById(R.id.currentTimeView);
+                //        state.setText(this.);
+
                         handler.postDelayed(this, 1000);
                     } else if(!inSprint){
                         System.out.println("Sprint time!");
@@ -116,6 +139,7 @@ public class Timer {
 
 
         };
+        */
     }
 
 
@@ -127,8 +151,159 @@ public class Timer {
         this.overallTimeRemaining = timeRemaining;
     }
 
+    public void decramentCurrentTime(){
+        if (this.currentSecond == 0){
+            if(this.currentMinute == 0){
+                if(this.currentHour == 0){
+                    return;
+                }
+
+                this.currentHour--;
+                this.currentMinute = 60;
+            }else {
+                this.currentMinute--;
+            }
+
+            this.currentSecond = 60;
+        }else{
+            this.currentSecond--;
+        }
+    }
+
+    public void decramentOverallTime(){
+        if (this.overallSecond == 0){
+            if(this.overallMinute == 0){
+                if(this.overallHour == 0){
+                    return;
+                }
+
+                this.overallHour--;
+                this.overallMinute = 60;
+            }else {
+                this.overallMinute--;
+            }
+
+            this.overallSecond = 60;
+        }else{
+            this.overallSecond--;
+        }
+    }
+
+    public String getCurrentTime(){
+        String time;
+        int hour = this.currentHour;
+        int min = this.currentMinute;
+        if(min % 10 > 0){
+            time = ""+hour+":0"+min;
+        } else{
+            time = ""+hour+":"+min;
+        }
+
+        int sec = this.currentSecond;
+        if(sec % 10 > 0){
+            time = time+":0"+sec;
+        } else {
+            time = time+":"+sec;
+        }
+        return time;
+    }
+
+    public String getOverallTime(){
+        String time;
+        int hour = this.overallHour;
+        int min = this.overallMinute;
+        if(min % 10 > 0){
+            time = ""+hour+":0"+min;
+        } else{
+            time = ""+hour+":"+min;
+        }
+
+        int sec = this.overallSecond;
+        if(sec % 10 > 0){
+            time = time+":0"+sec;
+        } else {
+            time = time+":"+sec;
+        }
+        return time;
+    }
+
     public Runnable getRunable() {
-        return runable;
+
+        final Timer that = this;
+
+        Runnable runnable = new Runnable(){
+            @Override
+            public void run() {
+                //   Log.d("KUSH", "HELLO from the handler");
+
+                if(overallTimeRemaining > 0 && timerOn){
+
+                    if(currentTimeRemaining > 0){
+                        EditText timeText = (EditText) activity.findViewById(R.id.timeText);
+                        timeText.setText(""+currentTimeRemaining);
+
+                        TextView currentTime = (TextView) activity.findViewById(R.id.currentTimeView);
+                        currentTime.setText(that.getCurrentTime());
+
+                        handler.postDelayed(this, 1000);
+                    } else if(!inSprint){
+                        System.out.println("Sprint time!");
+
+                        inSprint = !inSprint;
+                        currentTimeRemaining = sprintLength;
+
+                        TextView state = (TextView) activity.findViewById(R.id.stateText);
+                        state.setText("Sprint");
+                        RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
+                        root.setBackgroundColor(Color.parseColor("#FF6666"));
+
+
+                        EditText timeText = (EditText) activity.findViewById(R.id.timeText);
+                        timeText.setText(""+currentTimeRemaining);
+                        handler.postDelayed(this, 1000);
+                    } else if(longBreakCountDown == 0){
+                        System.out.println("long break time!!");
+
+                        longBreakCountDown = longBreakFrequency;
+                        currentTimeRemaining = longBreakLength;
+
+                        TextView state = (TextView) activity.findViewById(R.id.stateText);
+                        state.setText("Long Break");
+                        RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
+                        root.setBackgroundColor(Color.parseColor("#B2B2FF"));
+
+                        EditText timeText = (EditText) activity.findViewById(R.id.timeText);
+                        timeText.setText(""+currentTimeRemaining);
+                        handler.postDelayed(this, 1000);
+                    } else if(inSprint){
+                        System.out.println("short break time!!!!");
+                        inSprint = !inSprint;
+                        longBreakCountDown--;
+                        currentTimeRemaining = shortBreakLength;
+
+                        TextView state = (TextView) activity.findViewById(R.id.stateText);
+                        state.setText("Short Break");
+                        RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
+                        root.setBackgroundColor(Color.parseColor("#B2B2FF"));
+
+                        EditText timeText = (EditText) activity.findViewById(R.id.timeText);
+                        timeText.setText(""+currentTimeRemaining);
+                        handler.postDelayed(this, 1000);
+                    } else {
+                        System.out.println("ERRRRRRROOOOOORRRRR!!!!");
+                    }
+
+                    currentTimeRemaining -= 1;
+
+                    //           int time = Integer.parseInt(timeText.getText().toString());
+
+                }
+                overallTimeRemaining -= 1;
+            }
+
+
+        };
+        return runnable;
     }
 
     public void toggleTimer(boolean isChecked){
@@ -141,7 +316,7 @@ public class Timer {
             Toast.makeText(activity, "ON", Toast.LENGTH_SHORT).show();
             timerOn = true;
 
-            handler.postDelayed(this.runable, 1000);
+            handler.postDelayed(this.getRunable(), 1000);
         } else {
             Toast.makeText(activity, "OFF", Toast.LENGTH_SHORT).show();
             timerOn = false;

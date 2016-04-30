@@ -10,14 +10,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.owner.ergoefficiencytimer.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:background="#B2B2FF"
+    android:id="@+id/rootLayout">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView"
+        android:text="Timer Off"
+        android:id="@+id/stateText"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="78dp" />
@@ -27,7 +29,7 @@
         android:layout_height="wrap_content"
         android:text="start Timer"
         android:id="@+id/timerToggle"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/stateText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="86dp" />
 

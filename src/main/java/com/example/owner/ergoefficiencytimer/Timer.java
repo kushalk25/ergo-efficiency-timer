@@ -47,15 +47,15 @@ public class Timer {
 
         this.handler = new Handler();
 
-        this.shortBreakLength =new Time(0, 0, 10);
+        this.shortBreakLength =new Time(0, 0, 5);
         this.longBreakLength = new Time(0, 0, 20);
-        this.sprintLength = new Time(0, 1, 10);
+        this.sprintLength = new Time(0, 0, 5);
         this.longBreakFrequency = 3;
         this.longBreakCountDown = this.longBreakFrequency;
         this.inSprint = true;
 
 
-        totalTime = new Time(0, 3, 30);
+        totalTime = new Time(0, 1, 00);
 
         this.currentTime = new Time(sprintLength.getHour(), sprintLength.getMinute(), sprintLength.getSecond());
 
@@ -247,10 +247,10 @@ public class Timer {
                 //        EditText timeText = (EditText) activity.findViewById(R.id.timeText);
                   //      timeText.setText(""+currentTimeRemaining);
 
-                        TextView currentTime = (TextView) activity.findViewById(R.id.currentTimeView);
-                        currentTime.setText(that.currentTime.toString());
-                  //      TextView overallTime = (TextView) activity.findViewById(R.id.overallTimeView);
-                   //     overallTime.setText(that.getOverallTime());
+                        TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
+                        currentTimeView.setText(that.currentTime.toString());
+                        TextView totalTimeView = (TextView) activity.findViewById(R.id.totalTimeView);
+                        totalTimeView.setText(that.totalTime.toString());
 
                         handler.postDelayed(this, 1000);
                     } else if(!inSprint){
@@ -264,10 +264,11 @@ public class Timer {
                         RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
                         root.setBackgroundColor(Color.parseColor("#FF6666"));
 
-
-                        TextView currentTime = (TextView) activity.findViewById(R.id.currentTimeView);
-                        currentTime.setText(that.currentTime.toString());
-  //                      EditText timeText = (EditText) activity.findViewById(R.id.timeText);
+                        TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
+                        currentTimeView.setText(that.currentTime.toString());
+                        TextView totalTimeView = (TextView) activity.findViewById(R.id.totalTimeView);
+                        totalTimeView.setText(that.totalTime.toString());
+                        //EditText timeText = (EditText) activity.findViewById(R.id.timeText);
 //                        timeText.setText(""+currentTimeRemaining);
                         handler.postDelayed(this, 1000);
                     } else if(longBreakCountDown == 0){
@@ -281,8 +282,10 @@ public class Timer {
                         RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
                         root.setBackgroundColor(Color.parseColor("#B2B2FF"));
 
-                        TextView currentTime = (TextView) activity.findViewById(R.id.currentTimeView);
-                        currentTime.setText(that.currentTime.toString());
+                        TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
+                        currentTimeView.setText(that.currentTime.toString());
+                        TextView totalTimeView = (TextView) activity.findViewById(R.id.totalTimeView);
+                        totalTimeView.setText(that.totalTime.toString());
                       //  EditText timeText = (EditText) activity.findViewById(R.id.timeText);
                     //    timeText.setText(""+currentTimeRemaining);
                         handler.postDelayed(this, 1000);
@@ -298,8 +301,10 @@ public class Timer {
                         RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
                         root.setBackgroundColor(Color.parseColor("#B2B2FF"));
 
-                        TextView currentTime = (TextView) activity.findViewById(R.id.currentTimeView);
-                        currentTime.setText(that.currentTime.toString());
+                        TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
+                        currentTimeView.setText(that.currentTime.toString());
+                        TextView totalTimeView = (TextView) activity.findViewById(R.id.totalTimeView);
+                        totalTimeView.setText(that.totalTime.toString());
                         //TextView overallTime = (TextView) activity.findViewById(R.id.overallTimeView);
                         //overallTime.setText(that.getOverallTime());
                     //    EditText timeText = (EditText) activity.findViewById(R.id.timeText);
@@ -311,11 +316,19 @@ public class Timer {
 
                //     currentTimeRemaining -= 1;
                     that.currentTime.decrement();
-
+                    that.totalTime.decrement();
                     //           int time = Integer.parseInt(timeText.getText().toString());
 
+                } else {
+                    // this else statement handles the final case
+                    that.currentTime.decrement();
+                    that.totalTime.decrement();
+                    TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
+                    currentTimeView.setText(that.currentTime.toString());
+                    TextView totalTimeView = (TextView) activity.findViewById(R.id.totalTimeView);
+                    totalTimeView.setText(that.totalTime.toString());
                 }
-                that.totalTime.decrement();
+
               //  overallTimeRemaining -= 1;
             }
 
@@ -333,6 +346,9 @@ public class Timer {
 
             Toast.makeText(activity, "ON", Toast.LENGTH_SHORT).show();
             timerOn = true;
+
+            RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
+            root.setBackgroundColor(Color.parseColor("#FF6666"));
 
             handler.postDelayed(this.getRunable(), 1000);
         } else {

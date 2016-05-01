@@ -29,21 +29,12 @@
         android:layout_height="wrap_content"
         android:text="start Timer"
         android:id="@+id/timerToggle"
-        android:layout_marginBottom="141dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/timeText"
-        android:text="500"
-        android:gravity="center"
-        android:layout_alignTop="@+id/timerToggle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="52dp" />
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="54dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="72dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,10 +54,8 @@
         android:text="Total Time Left:"
         android:id="@+id/textView2"
         android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/timerToggle"
-        android:layout_alignEnd="@+id/timerToggle"
-        android:layout_marginRight="31dp"
-        android:layout_marginEnd="31dp" />
+        android:layout_alignLeft="@+id/timerToggle"
+        android:layout_alignStart="@+id/timerToggle" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -75,7 +64,17 @@
         android:text="0:00:00"
         android:id="@+id/totalTimeView"
         android:layout_alignTop="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2" />
+        android:layout_toRightOf="@+id/currentTimeView"
+        android:layout_toEndOf="@+id/currentTimeView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Timer"
+        android:id="@+id/editButton"
+        android:layout_alignTop="@+id/timerToggle"
+        android:layout_alignRight="@+id/totalTimeView"
+        android:layout_alignEnd="@+id/totalTimeView"
+        android:onClick="navigationButtonOnClick" />
 
 </RelativeLayout>

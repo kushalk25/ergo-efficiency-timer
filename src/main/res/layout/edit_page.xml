@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Total Time:"
+        android:id="@+id/textView"
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/totalHours"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/totalMinutes"
+        android:layout_alignBottom="@+id/totalHours"
+        android:layout_toRightOf="@+id/totalHours"
+        android:layout_toEndOf="@+id/totalHours"
+        android:layout_marginLeft="20dp" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/totalSeconds"
+        android:layout_alignBottom="@+id/totalMinutes"
+        android:layout_toRightOf="@+id/totalMinutes"
+        android:layout_toEndOf="@+id/totalMinutes"
+        android:layout_marginLeft="25dp" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Hours"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/totalHours"
+        android:layout_alignLeft="@+id/totalHours"
+        android:layout_alignStart="@+id/totalHours"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Minutes"
+        android:id="@+id/textView4"
+        android:gravity="center_horizontal"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_alignLeft="@+id/totalMinutes"
+        android:layout_alignStart="@+id/totalMinutes" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Seconds"
+        android:id="@+id/textView5"
+        android:gravity="center_horizontal"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_alignLeft="@+id/totalSeconds"
+        android:layout_alignStart="@+id/totalSeconds" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Sprint Length:"
+        android:id="@+id/textView6"
+        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_marginTop="25dp" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/sprintHours"
+        android:layout_below="@+id/textView6"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_alignStart="@+id/textView6" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/sprintMinutes"
+        android:layout_alignTop="@+id/sprintHours"
+        android:layout_toRightOf="@+id/sprintHours"
+        android:layout_toEndOf="@+id/sprintHours"
+        android:layout_marginLeft="25dp" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/sprintSeconds"
+        android:layout_alignTop="@+id/sprintMinutes"
+        android:layout_toRightOf="@+id/sprintMinutes"
+        android:layout_toEndOf="@+id/sprintMinutes"
+        android:layout_marginLeft="25dp" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Hours"
+        android:id="@+id/textView7"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/sprintHours"
+        android:layout_alignLeft="@+id/sprintHours"
+        android:layout_alignStart="@+id/sprintHours" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Minutes"
+        android:id="@+id/textView8"
+        android:gravity="center_horizontal"
+        android:layout_alignTop="@+id/textView7"
+        android:layout_alignLeft="@+id/sprintMinutes"
+        android:layout_alignStart="@+id/sprintMinutes" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Seconds"
+        android:id="@+id/textView9"
+        android:gravity="center_horizontal"
+        android:layout_alignTop="@+id/textView8"
+        android:layout_alignLeft="@+id/sprintSeconds"
+        android:layout_alignStart="@+id/sprintSeconds" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Short Break Length:"
+        android:id="@+id/textView10"
+        android:layout_below="@+id/textView7"
+        android:layout_alignRight="@+id/textView8"
+        android:layout_alignEnd="@+id/textView8"
+        android:layout_marginTop="25dp" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/shortHours"
+        android:layout_below="@+id/textView10"
+        android:layout_alignLeft="@+id/textView10"
+        android:layout_alignStart="@+id/textView10" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/shortMinutes"
+        android:layout_below="@+id/textView10"
+        android:layout_toRightOf="@+id/shortHours"
+        android:layout_toEndOf="@+id/shortHours"
+        android:layout_marginLeft="25dp" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/shortSeconds"
+        android:layout_alignTop="@+id/shortMinutes"
+        android:layout_toRightOf="@+id/shortMinutes"
+        android:layout_toEndOf="@+id/shortMinutes"
+        android:layout_marginLeft="25dp" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Hours"
+        android:id="@+id/textView11"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/shortHours"
+        android:layout_alignLeft="@+id/shortHours"
+        android:layout_alignStart="@+id/shortHours" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Minutes"
+        android:id="@+id/textView12"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/shortMinutes"
+        android:layout_alignLeft="@+id/shortMinutes"
+        android:layout_alignStart="@+id/shortMinutes" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Seconds"
+        android:id="@+id/textView13"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/shortSeconds"
+        android:layout_alignLeft="@+id/shortSeconds"
+        android:layout_alignStart="@+id/shortSeconds" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Long Break Length:"
+        android:id="@+id/textView14"
+        android:layout_below="@+id/textView11"
+        android:layout_alignLeft="@+id/textView11"
+        android:layout_alignStart="@+id/textView11"
+        android:layout_marginTop="25dp" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/longHours"
+        android:layout_below="@+id/textView14"
+        android:layout_alignLeft="@+id/textView14"
+        android:layout_alignStart="@+id/textView14" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/longMinutes"
+        android:layout_alignTop="@+id/longHours"
+        android:layout_toRightOf="@+id/longHours"
+        android:layout_toEndOf="@+id/longHours"
+        android:layout_marginLeft="25dp" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/longSeconds"
+        android:layout_alignTop="@+id/longMinutes"
+        android:layout_toRightOf="@+id/longMinutes"
+        android:layout_toEndOf="@+id/longMinutes"
+        android:layout_marginLeft="25dp" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Hours"
+        android:id="@+id/textView15"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/longHours"
+        android:layout_alignLeft="@+id/longHours"
+        android:layout_alignStart="@+id/longHours" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Minutes"
+        android:id="@+id/textView16"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/longMinutes"
+        android:layout_alignLeft="@+id/longMinutes"
+        android:layout_alignStart="@+id/longMinutes" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Seconds"
+        android:id="@+id/textView17"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/longSeconds"
+        android:layout_alignLeft="@+id/longSeconds"
+        android:layout_alignStart="@+id/longSeconds" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Long Break Frequency:"
+        android:id="@+id/textView18"
+        android:textSize="20dp"
+        android:layout_below="@+id/textView15"
+        android:layout_toLeftOf="@+id/textView17"
+        android:layout_toStartOf="@+id/textView17"
+        android:layout_marginTop="25dp" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/longFrequency"
+        android:layout_alignTop="@+id/textView18"
+        android:layout_alignLeft="@+id/textView9"
+        android:layout_alignStart="@+id/textView9"
+        android:layout_alignBottom="@+id/textView18" />
+</RelativeLayout>

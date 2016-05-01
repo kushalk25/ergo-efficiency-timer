@@ -1,5 +1,6 @@
 package com.example.owner.ergoefficiencytimer;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -11,14 +12,17 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
     Timer myTimer;
+    EditPage editPage;
 
   //  boolean timerOn = false;
  //   long timeRemaining = 0;
@@ -52,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -63,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                         .setAction("Action", null).show();
             }
         });
+        */
 
         toggleButton = (ToggleButton) findViewById(R.id.timerToggle);
         toggleButton.setOnCheckedChangeListener(this);
@@ -71,6 +78,23 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
 
 
+    }
+
+    public void navigationButtonOnClick(View v) {
+    //    Typeface limeLightTypeFace = Typeface.createFromAsset(getAssets(), "limelight.ttf");
+        Button button = (Button) v;
+
+        setContentView(R.layout.edit_page);
+
+        EditPage ep = new EditPage(this, myTimer);
+        ep.loadTimerValues();
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        setContentView(R.layout.activity_main);
     }
 
     @Override

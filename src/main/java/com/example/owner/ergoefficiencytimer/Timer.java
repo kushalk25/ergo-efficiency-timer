@@ -339,9 +339,9 @@ public class Timer {
 
     public void toggleTimer(boolean isChecked){
         if(isChecked){
-            EditText timeText = (EditText) activity.findViewById(R.id.timeText);
-
-            int time = Integer.parseInt(timeText.getText().toString());
+  //          EditText timeText = (EditText) activity.findViewById(R.id.timeText);
+//
+         //   int time = Integer.parseInt(timeText.getText().toString());
        //     this.setOverallTimeRemaining(time);
 
             Toast.makeText(activity, "ON", Toast.LENGTH_SHORT).show();
@@ -355,5 +355,9 @@ public class Timer {
             Toast.makeText(activity, "OFF", Toast.LENGTH_SHORT).show();
             timerOn = false;
         }
+    }
+
+    public Time getTotalTime() {
+        return this.totalTime;
     }
 }

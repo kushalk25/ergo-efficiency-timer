@@ -27,5 +27,25 @@ public class EditPage {
         EditText totalTimeSecondsView = (EditText) this.activity.findViewById(R.id.totalSeconds);
         totalTimeSecondsView.setText(""+totalTime.getSecond());
 
+        Time sprintLength = this.timer.getSprintLength();
+
+        EditText sprintLengthHoursView = (EditText) this.activity.findViewById(R.id.sprintHours);
+        sprintLengthHoursView.setText(""+sprintLength.getHour());
+        EditText sprintLengthMinutesView = (EditText) this.activity.findViewById(R.id.sprintMinutes);
+        sprintLengthMinutesView.setText(""+sprintLength.getMinute());
+        EditText sprintLengthSecondsView = (EditText) this.activity.findViewById(R.id.sprintSeconds);
+        sprintLengthSecondsView.setText(""+sprintLength.getSecond());
+
+    }
+
+    public void saveValues(){
+        EditText totalHoursView = (EditText) activity.findViewById(R.id.totalHours);
+        int totalHours = Integer.parseInt(totalHoursView.getText().toString());
+        EditText totalMinutesView = (EditText) activity.findViewById(R.id.totalMinutes);
+        int totalMinutes = Integer.parseInt(totalMinutesView.getText().toString());
+        EditText totalSecondsView = (EditText) activity.findViewById(R.id.totalSeconds);
+        int totalSeconds = Integer.parseInt(totalSecondsView.getText().toString());
+        this.timer.setTotalTime(new Time(totalHours, totalMinutes, totalSeconds));
+
     }
 }

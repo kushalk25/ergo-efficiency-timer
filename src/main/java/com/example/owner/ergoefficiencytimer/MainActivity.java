@@ -86,15 +86,20 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
         setContentView(R.layout.edit_page);
 
-        EditPage ep = new EditPage(this, myTimer);
-        ep.loadTimerValues();
+        editPage = new EditPage(this, myTimer);
+        editPage.loadTimerValues();
 
     }
 
 
     @Override
     public void onBackPressed() {
+
+        editPage.saveValues();
         setContentView(R.layout.activity_main);
+
+        myTimer.displayTime();
+        myTimer.newHandler();
     }
 
     @Override

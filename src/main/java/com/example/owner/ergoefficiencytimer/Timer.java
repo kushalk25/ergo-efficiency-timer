@@ -327,6 +327,7 @@ public class Timer {
                     currentTimeView.setText(that.currentTime.toString());
                     TextView totalTimeView = (TextView) activity.findViewById(R.id.totalTimeView);
                     totalTimeView.setText(that.totalTime.toString());
+                    handler.removeCallbacks(this);
                 }
 
               //  overallTimeRemaining -= 1;
@@ -335,6 +336,17 @@ public class Timer {
 
         };
         return runnable;
+    }
+
+    public void newHandler(){
+        this.handler = new Handler();
+    }
+
+    public void displayTime(){
+        TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
+        currentTimeView.setText(this.currentTime.toString());
+        TextView totalTimeView = (TextView) activity.findViewById(R.id.totalTimeView);
+        totalTimeView.setText(this.totalTime.toString());
     }
 
     public void toggleTimer(boolean isChecked){
@@ -354,10 +366,47 @@ public class Timer {
         } else {
             Toast.makeText(activity, "OFF", Toast.LENGTH_SHORT).show();
             timerOn = false;
+            handler.removeCallbacks(this.getRunable());
         }
     }
 
     public Time getTotalTime() {
         return this.totalTime;
+    }
+
+    public Time getCurrentTime() {
+        return this.currentTime;
+    }
+
+    public Time getSprintLength() {
+        return sprintLength;
+    }
+
+    public Time getLongBreakLength() {
+        return longBreakLength;
+    }
+
+    public Time getShortBreakLength() {
+        return shortBreakLength;
+    }
+
+    public int getLongBreakFrequency() {
+        return longBreakFrequency;
+    }
+
+    public void setTotalTime(Time totalTime) {
+        this.totalTime = totalTime;
+    }
+
+    public void setShortBreakLength(Time shortBreakLength) {
+        this.shortBreakLength = shortBreakLength;
+    }
+
+    public void setLongBreakLength(Time longBreakLength) {
+        this.longBreakLength = longBreakLength;
+    }
+
+    public void setSprintLength(Time sprintLength) {
+        this.sprintLength = sprintLength;
     }
 }

@@ -327,7 +327,7 @@ public class Timer {
                     currentTimeView.setText(that.currentTime.toString());
                     TextView totalTimeView = (TextView) activity.findViewById(R.id.totalTimeView);
                     totalTimeView.setText(that.totalTime.toString());
-                    handler.removeCallbacks(this);
+              //      handler.removeCallbacks(this);
                 }
 
               //  overallTimeRemaining -= 1;

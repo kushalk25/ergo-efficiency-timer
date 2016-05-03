@@ -23,13 +23,14 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
     Timer myTimer;
     EditPage editPage;
+    boolean editing;
 
   //  boolean timerOn = false;
  //   long timeRemaining = 0;
  //   private Handler handler;
     private ToggleButton toggleButton;
 
-    /*
+/*
     Runnable runnable = new Runnable(){
         @Override
         public void run() {
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         }
     };
     */
+
 
 
     @Override
@@ -76,7 +78,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
         myTimer = new Timer(this);
 
-
+        editPage = new EditPage(this, myTimer);
+        editing = false;
 
     }
 
@@ -85,8 +88,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         Button button = (Button) v;
 
         setContentView(R.layout.edit_page);
-
-        editPage = new EditPage(this, myTimer);
+        
+        editing = true;
         editPage.loadTimerValues();
 
     }
@@ -95,11 +98,16 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     @Override
     public void onBackPressed() {
 
-        editPage.saveValues();
+        if(editing){
+            editPage.saveValues();
+        }
+
         setContentView(R.layout.activity_main);
 
         myTimer.displayTime();
-        myTimer.newHandler();
+        toggleButton = (ToggleButton) findViewById(R.id.timerToggle);
+        toggleButton.setOnCheckedChangeListener(this);
+//        myTimer.newHandler();
     }
 
     @Override

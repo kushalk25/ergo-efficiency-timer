@@ -409,4 +409,8 @@ public class Timer {
     public void setSprintLength(Time sprintLength) {
         this.sprintLength = sprintLength;
     }
+
+    public void setLongBreakFrequency(int longBreakFrequency) {
+        this.longBreakFrequency = longBreakFrequency;
+    }
 }

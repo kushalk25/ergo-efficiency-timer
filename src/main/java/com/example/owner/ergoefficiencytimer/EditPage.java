@@ -34,8 +34,30 @@ public class EditPage {
         EditText sprintLengthMinutesView = (EditText) this.activity.findViewById(R.id.sprintMinutes);
         sprintLengthMinutesView.setText(""+sprintLength.getMinute());
         EditText sprintLengthSecondsView = (EditText) this.activity.findViewById(R.id.sprintSeconds);
-        sprintLengthSecondsView.setText(""+sprintLength.getSecond());
+        sprintLengthSecondsView.setText("" + sprintLength.getSecond());
 
+        Time shortLength = this.timer.getShortBreakLength();
+
+        EditText shortLengthHoursView = (EditText) this.activity.findViewById(R.id.shortHours);
+        shortLengthHoursView.setText("" + shortLength.getHour());
+        EditText shortLengthMinutesView = (EditText) this.activity.findViewById(R.id.shortMinutes);
+        shortLengthMinutesView.setText(""+shortLength.getMinute());
+        EditText shortLengthSecondsView = (EditText) this.activity.findViewById(R.id.shortSeconds);
+        shortLengthSecondsView.setText("" + shortLength.getSecond());
+
+        Time longLength = this.timer.getLongBreakLength();
+
+        EditText longLengthHoursView = (EditText) this.activity.findViewById(R.id.longHours);
+        longLengthHoursView.setText(""+longLength.getHour());
+        EditText longLengthMinutesView = (EditText) this.activity.findViewById(R.id.longMinutes);
+        longLengthMinutesView.setText(""+longLength.getMinute());
+        EditText longLengthSecondsView = (EditText) this.activity.findViewById(R.id.longSeconds);
+        longLengthSecondsView.setText(""+longLength.getSecond());
+
+        int frequency = this.timer.getLongBreakFrequency();
+
+        EditText frequencyView = (EditText) this.activity.findViewById(R.id.longFrequency);
+        frequencyView.setText("" + frequency);
     }
 
     public void saveValues(){
@@ -47,5 +69,32 @@ public class EditPage {
         int totalSeconds = Integer.parseInt(totalSecondsView.getText().toString());
         this.timer.setTotalTime(new Time(totalHours, totalMinutes, totalSeconds));
 
+        EditText sprintLengthHoursView = (EditText) activity.findViewById(R.id.sprintHours);
+        int sprintHours = Integer.parseInt(sprintLengthHoursView.getText().toString());
+        EditText sprintLengthMinutesView = (EditText) activity.findViewById(R.id.sprintMinutes);
+        int sprintMinutes = Integer.parseInt(sprintLengthMinutesView.getText().toString());
+        EditText sprintLengthSecondsView = (EditText) activity.findViewById(R.id.sprintSeconds);
+        int sprintSeconds = Integer.parseInt(sprintLengthSecondsView.getText().toString());
+        this.timer.setSprintLength(new Time(sprintHours, sprintMinutes, sprintSeconds));
+
+        EditText shortLengthHoursView = (EditText) activity.findViewById(R.id.shortHours);
+        int shortHours = Integer.parseInt(shortLengthHoursView.getText().toString());
+        EditText shortLengthMinutesView = (EditText) activity.findViewById(R.id.shortMinutes);
+        int shortMinutes = Integer.parseInt(shortLengthMinutesView.getText().toString());
+        EditText shortLengthSecondsView = (EditText) activity.findViewById(R.id.shortSeconds);
+        int shortSeconds = Integer.parseInt(shortLengthSecondsView.getText().toString());
+        this.timer.setShortBreakLength(new Time(shortHours, shortMinutes, shortSeconds));
+
+        EditText longLengthHoursView = (EditText) activity.findViewById(R.id.longHours);
+        int longHours = Integer.parseInt(longLengthHoursView.getText().toString());
+        EditText longLengthMinutesView = (EditText) activity.findViewById(R.id.longMinutes);
+        int longMinutes = Integer.parseInt(longLengthMinutesView.getText().toString());
+        EditText longLengthSecondsView = (EditText) activity.findViewById(R.id.longSeconds);
+        int longSeconds = Integer.parseInt(longLengthSecondsView.getText().toString());
+        this.timer.setLongBreakLength(new Time(longHours, longMinutes, longSeconds));
+
+        EditText frequencyView = (EditText) activity.findViewById(R.id.longFrequency);
+        int frequency = Integer.parseInt(frequencyView.getText().toString());
+        this.timer.setLongBreakFrequency(frequency);
     }
 }

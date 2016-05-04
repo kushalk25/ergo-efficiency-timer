@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         Button button = (Button) v;
 
         setContentView(R.layout.edit_page);
-        
+
         editing = true;
         editPage.loadTimerValues();
 

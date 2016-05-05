@@ -2,6 +2,8 @@ package com.example.owner.ergoefficiencytimer;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Handler;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -27,6 +29,9 @@ public class Timer {
     int overallSecond;
     int currentSecond;
     */
+    SoundPool soundPool;
+    int bellId;
+    boolean alarmOn;
 
     Time currentTime;
     Time totalTime;
@@ -41,13 +46,14 @@ public class Timer {
 
     Handler handler;
     Activity activity;
+    boolean firstPlay;
 
     public Timer(Activity _activity) {
         this.activity = _activity;
 
         this.handler = new Handler();
 
-        this.shortBreakLength =new Time(0, 0, 5);
+        this.shortBreakLength = new Time(0, 0, 5);
         this.longBreakLength = new Time(0, 0, 20);
         this.sprintLength = new Time(0, 0, 5);
         this.longBreakFrequency = 3;
@@ -59,178 +65,13 @@ public class Timer {
 
         this.currentTime = new Time(sprintLength.getHour(), sprintLength.getMinute(), sprintLength.getSecond());
 
-        //this.overallTimeRemaining = this.calcOverallTimeRemaining();
 
-        //this.currentTimeRemaining = this.sprintLength;
+        this.soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        this.bellId = this.soundPool.load(activity, R.raw.bell, 1);
+        this.alarmOn = false;
+        this.firstPlay = true;
 
-
-        /*
-        this.runable = new Runnable(){
-            @Override
-            public void run() {
-             //   Log.d("KUSH", "HELLO from the handler");
-
-                if(overallTimeRemaining > 0 && timerOn){
-
-                    if(currentTimeRemaining > 0){
-                        EditText timeText = (EditText) activity.findViewById(R.id.timeText);
-                        timeText.setText(""+currentTimeRemaining);
-
-                //        TextView state = (TextView) activity.findViewById(R.id.currentTimeView);
-                //        state.setText(this.);
-
-                        handler.postDelayed(this, 1000);
-                    } else if(!inSprint){
-                        System.out.println("Sprint time!");
-
-                        inSprint = !inSprint;
-                        currentTimeRemaining = sprintLength;
-
-                        TextView state = (TextView) activity.findViewById(R.id.stateText);
-                        state.setText("Sprint");
-                        RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
-                        root.setBackgroundColor(Color.parseColor("#FF6666"));
-
-
-                        EditText timeText = (EditText) activity.findViewById(R.id.timeText);
-                        timeText.setText(""+currentTimeRemaining);
-                        handler.postDelayed(this, 1000);
-                    } else if(longBreakCountDown == 0){
-                        System.out.println("long break time!!");
-
-                        longBreakCountDown = longBreakFrequency;
-                        currentTimeRemaining = longBreakLength;
-
-                        TextView state = (TextView) activity.findViewById(R.id.stateText);
-                        state.setText("Long Break");
-                        RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
-                        root.setBackgroundColor(Color.parseColor("#B2B2FF"));
-
-                        EditText timeText = (EditText) activity.findViewById(R.id.timeText);
-                        timeText.setText(""+currentTimeRemaining);
-                        handler.postDelayed(this, 1000);
-                    } else if(inSprint){
-                        System.out.println("short break time!!!!");
-                        inSprint = !inSprint;
-                        longBreakCountDown--;
-                        currentTimeRemaining = shortBreakLength;
-
-                        TextView state = (TextView) activity.findViewById(R.id.stateText);
-                        state.setText("Short Break");
-                        RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
-                        root.setBackgroundColor(Color.parseColor("#B2B2FF"));
-
-                        EditText timeText = (EditText) activity.findViewById(R.id.timeText);
-                        timeText.setText(""+currentTimeRemaining);
-                        handler.postDelayed(this, 1000);
-                    } else {
-                        System.out.println("ERRRRRRROOOOOORRRRR!!!!");
-                    }
-
-                    currentTimeRemaining -= 1;
-
-                    //           int time = Integer.parseInt(timeText.getText().toString());
-
-                }
-                overallTimeRemaining -= 1;
-            }
-
-
-        };
-        */
     }
-
-   // private int calcOverallTimeRemaining() {
-
-    //    return (this.overallHour * 60 * 60);
-   // }
-
-
-  //  public void setOverallTimeRemaining(int timeRemaining) {
-  //      this.overallTimeRemaining = timeRemaining;
-  //  }
-
- //   public void setOverallTimeRemaining(long timeRemaining) {
- //       this.overallTimeRemaining = timeRemaining;
- //   }
-
-    /*
-    public void decramentCurrentTime(){
-        if (this.currentSecond == 0){
-            if(this.currentMinute == 0){
-                if(this.currentHour == 0){
-                    return;
-                }
-
-                this.currentHour--;
-                this.currentMinute = 60;
-            }else {
-                this.currentMinute--;
-            }
-
-            this.currentSecond = 60;
-        }else{
-            this.currentSecond--;
-        }
-    }
-
-    public void decramentOverallTime(){
-        if (this.overallSecond == 0){
-            if(this.overallMinute == 0){
-                if(this.overallHour == 0){
-                    return;
-                }
-
-                this.overallHour--;
-                this.overallMinute = 60;
-            }else {
-                this.overallMinute--;
-            }
-
-            this.overallSecond = 60;
-        }else{
-            this.overallSecond--;
-        }
-    }
-
-    public String getCurrentTime(){
-        String time;
-        int hour = this.currentHour;
-        int min = this.currentMinute;
-        if(min / 10 == 0){
-            time = ""+hour+":0"+min;
-        } else{
-            time = ""+hour+":"+min;
-        }
-
-        int sec = this.currentSecond;
-        if(sec / 10 == 0){
-            time = time+":0"+sec;
-        } else {
-            time = time+":"+sec;
-        }
-        return time;
-    }
-
-    public String getOverallTime(){
-        String time;
-        int hour = this.overallHour;
-        int min = this.overallMinute;
-        if(min / 10 == 0){
-            time = ""+hour+":0"+min;
-        } else{
-            time = ""+hour+":"+min;
-        }
-
-        int sec = this.overallSecond;
-        if(sec / 10 == 0){
-            time = time+":0"+sec;
-        } else {
-            time = time+":"+sec;
-        }
-        return time;
-    }
-    */
 
     public Runnable getRunable() {
 
@@ -256,6 +97,8 @@ public class Timer {
                     } else if(!inSprint){
                         System.out.println("Sprint time!");
 
+                        that.playAlarm();
+
                         inSprint = !inSprint;
                         that.currentTime.setTime(that.sprintLength.getHour(), that.sprintLength.getMinute(), that.sprintLength.getSecond());
 
@@ -274,6 +117,8 @@ public class Timer {
                     } else if(longBreakCountDown == 0){
                         System.out.println("long break time!!");
 
+                        that.playAlarm();
+
                         longBreakCountDown = longBreakFrequency;
                         that.currentTime.setTime(that.longBreakLength.getHour(), that.longBreakLength.getMinute(), that.longBreakLength.getSecond());
 
@@ -291,6 +136,9 @@ public class Timer {
                         handler.postDelayed(this, 1000);
                     } else if(inSprint){
                         System.out.println("short break time!!!!");
+
+                        that.playAlarm();
+
                         inSprint = !inSprint;
                         longBreakCountDown--;
                         that.currentTime.setTime(that.shortBreakLength.getHour(), that.shortBreakLength.getMinute(), that.shortBreakLength.getSecond());
@@ -412,5 +260,23 @@ public class Timer {
 
     public void setLongBreakFrequency(int longBreakFrequency) {
         this.longBreakFrequency = longBreakFrequency;
+    }
+
+    public void playAlarm(){
+        if(this.firstPlay ){
+            this.soundPool.play(this.bellId, 1, 1, 1, -1, 1);
+            this.alarmOn = true;
+            this.firstPlay = false;
+        } else if(!this.alarmOn) {
+            this.soundPool.resume(this.bellId);
+            this.alarmOn = true;
+        }
+    }
+
+    public void stopAlarm() {
+        if(this.alarmOn){
+            this.soundPool.pause(this.bellId);
+            this.alarmOn = false;
+        }
     }
 }

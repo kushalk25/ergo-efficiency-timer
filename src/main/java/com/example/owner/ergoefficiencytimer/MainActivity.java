@@ -94,6 +94,12 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
     }
 
+    public void stopAlarm(View v){
+
+        myTimer.stopAlarm();
+
+    }
+
 
     @Override
     public void onBackPressed() {

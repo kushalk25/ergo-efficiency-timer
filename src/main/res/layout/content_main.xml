@@ -77,4 +77,14 @@
         android:layout_alignEnd="@+id/totalTimeView"
         android:onClick="navigationButtonOnClick" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stop Alarm"
+        android:id="@+id/stopSoundButton"
+        android:layout_below="@+id/timerToggle"
+        android:layout_alignLeft="@+id/timerToggle"
+        android:layout_alignStart="@+id/timerToggle"
+        android:onClick="stopAlarm" />
+
 </RelativeLayout>

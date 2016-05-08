@@ -1,6 +1,8 @@
 package com.example.owner.ergoefficiencytimer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -263,6 +265,22 @@ public class Timer {
     }
 
     public void playAlarm(){
+
+        final Timer that = this;
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(activity);
+
+        alert.setMessage("ALARM IS ON")
+                .setPositiveButton("Stop", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        that.stopAlarm();
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        alert.show();
+
         if(this.firstPlay ){
             this.soundPool.play(this.bellId, 1, 1, 1, -1, 1);
             this.alarmOn = true;

@@ -106,7 +106,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
         if(editing){
             editPage.saveValues();
+            editing = false;
         }
+
 
         setContentView(R.layout.activity_main);
 

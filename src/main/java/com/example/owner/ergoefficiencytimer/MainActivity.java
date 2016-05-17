@@ -21,101 +21,62 @@ import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
+    // class attributes
     Timer myTimer;
     EditPage editPage;
     boolean editing;
-
-  //  boolean timerOn = false;
- //   long timeRemaining = 0;
- //   private Handler handler;
     private ToggleButton toggleButton;
-
-/*
-    Runnable runnable = new Runnable(){
-        @Override
-        public void run() {
-            Log.d("KUSH", "HELLO from the handler");
-
-
-            timeRemaining -= 1;
-            if(timeRemaining > 0 && timerOn){
-                EditText timeText = (EditText) findViewById(R.id.timeText);
-
-                timeText.setText(""+timeRemaining);
-                handler.postDelayed(this, 1000);
-
-     //           int time = Integer.parseInt(timeText.getText().toString());
-
-            }
-
-        }
-    };
-    */
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
-
+        // toggle button will run and pause the app
         toggleButton = (ToggleButton) findViewById(R.id.timerToggle);
         toggleButton.setOnCheckedChangeListener(this);
 
         myTimer = new Timer(this);
+        myTimer.displayTime();
 
         editPage = new EditPage(this, myTimer);
         editing = false;
 
     }
 
+    // the navigation buttons just set the content view
     public void navigationButtonOnClick(View v) {
     //    Typeface limeLightTypeFace = Typeface.createFromAsset(getAssets(), "limelight.ttf");
         Button button = (Button) v;
 
-        setContentView(R.layout.edit_page);
-
+        // editing is true when we move to the edit page (for now the only other page)
         editing = true;
+        setContentView(R.layout.edit_page);
         editPage.loadTimerValues();
-
     }
 
     public void stopAlarm(View v){
-
         myTimer.stopAlarm();
-
     }
 
 
     @Override
+    // override will help to easily navigate the different pages since everything
+    // is under one activity
     public void onBackPressed() {
 
+        // if we were are currently in the editing page editing is true
         if(editing){
             editPage.saveValues();
             editing = false;
         }
 
-
         setContentView(R.layout.activity_main);
-
+        myTimer.reset();
         myTimer.displayTime();
+        // have to reset the toggle button
         toggleButton = (ToggleButton) findViewById(R.id.timerToggle);
         toggleButton.setOnCheckedChangeListener(this);
-//        myTimer.newHandler();
     }
 
     @Override
@@ -144,22 +105,5 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
         myTimer.toggleTimer(isChecked);
-
-      /*
-        if(isChecked){
-            EditText timeText = (EditText) findViewById(R.id.timeText);
-
-            int time = Integer.parseInt(timeText.getText().toString());
-            myTimer.setTimeRemaining(time);
-
-            Toast.makeText(this, "ON", Toast.LENGTH_SHORT).show();
-            timerOn = true;
-
-            handler.postDelayed(runnable, 1000);
-        } else {
-            Toast.makeText(this, "OFF", Toast.LENGTH_SHORT).show();
-            timerOn = false;
-        }
-        */
     }
 }

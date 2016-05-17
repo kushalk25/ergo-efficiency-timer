@@ -17,6 +17,7 @@ public class EditPage {
 
     }
 
+    // load all the values from the timer to the edit page textboxes
     public void loadTimerValues(){
         Time totalTime = this.timer.getTotalTime();
 
@@ -60,6 +61,7 @@ public class EditPage {
         frequencyView.setText("" + frequency);
     }
 
+    // save all the values
     public void saveValues(){
         EditText totalHoursView = (EditText) activity.findViewById(R.id.totalHours);
         int totalHours = Integer.parseInt(totalHoursView.getText().toString());

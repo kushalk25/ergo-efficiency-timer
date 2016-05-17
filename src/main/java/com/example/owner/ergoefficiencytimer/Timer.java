@@ -18,26 +18,17 @@ import android.widget.Toast;
 
 public class Timer {
     boolean timerOn = false;
-  //  Runnable runable;
-
-    /*
-    long currentTimeRemaining;
-    long overallTimeRemaining;
-
-    int overallHour;
-    int currentHour;
-    int overallMinute;
-    int currentMinute;
-    int overallSecond;
-    int currentSecond;
-    */
+    
+    // these variable deal with sound
     SoundPool soundPool;
     int bellId;
     boolean alarmOn;
 
+    // time that is displayed
     Time currentTime;
     Time totalTime;
 
+    // options of the timer
     Time shortBreakLength;
     Time longBreakLength;
     Time sprintLength;
@@ -55,26 +46,25 @@ public class Timer {
 
         this.handler = new Handler();
 
+        // default time, will make customizable defaults this later
         this.shortBreakLength = new Time(0, 0, 5);
         this.longBreakLength = new Time(0, 0, 20);
         this.sprintLength = new Time(0, 0, 5);
         this.longBreakFrequency = 3;
         this.longBreakCountDown = this.longBreakFrequency;
         this.inSprint = true;
-
-
         totalTime = new Time(0, 1, 00);
-
         this.currentTime = new Time(sprintLength.getHour(), sprintLength.getMinute(), sprintLength.getSecond());
 
-
-        this.soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        // set up alarm
+        this.soundPool = new SoundPool(1, AudioManager.STREAM_ALARM, 0);
         this.bellId = this.soundPool.load(activity, R.raw.bell, 1);
         this.alarmOn = false;
         this.firstPlay = true;
 
     }
 
+    // this function returns a runnable that will handle the thread which controls the timer.
     public Runnable getRunable() {
 
         final Timer that = this;
@@ -82,13 +72,10 @@ public class Timer {
         Runnable runnable = new Runnable(){
             @Override
             public void run() {
-                //   Log.d("KUSH", "HELLO from the handler");
-
                 if(totalTime.stillMoreTime() && timerOn){
 
+                    // stardard action
                     if(that.currentTime.stillMoreTime()){
-                //        EditText timeText = (EditText) activity.findViewById(R.id.timeText);
-                  //      timeText.setText(""+currentTimeRemaining);
 
                         TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
                         currentTimeView.setText(that.currentTime.toString());
@@ -96,45 +83,46 @@ public class Timer {
                         totalTimeView.setText(that.totalTime.toString());
 
                         handler.postDelayed(this, 1000);
+
+                    // switching to sprint stage
                     } else if(!inSprint){
                         System.out.println("Sprint time!");
-
                         that.playAlarm();
 
+                        // TODO: make this it's own subroutine, or make a subroutine that handles all state changes
                         inSprint = !inSprint;
                         that.currentTime.setTime(that.sprintLength.getHour(), that.sprintLength.getMinute(), that.sprintLength.getSecond());
-
                         TextView state = (TextView) activity.findViewById(R.id.stateText);
                         state.setText("Sprint");
                         RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
-                        root.setBackgroundColor(Color.parseColor("#FF6666"));
+                        root.setBackgroundColor(Color.parseColor("#Be0000"));
 
                         TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
                         currentTimeView.setText(that.currentTime.toString());
                         TextView totalTimeView = (TextView) activity.findViewById(R.id.totalTimeView);
                         totalTimeView.setText(that.totalTime.toString());
-                        //EditText timeText = (EditText) activity.findViewById(R.id.timeText);
-//                        timeText.setText(""+currentTimeRemaining);
+
                         handler.postDelayed(this, 1000);
-                    } else if(longBreakCountDown == 0){
+
+                    // if it is time for a long break
+                    } else if(inSprint && longBreakCountDown == 0){
                         System.out.println("long break time!!");
 
                         that.playAlarm();
-
+                        // reset longBreakCountDown
                         longBreakCountDown = longBreakFrequency;
                         that.currentTime.setTime(that.longBreakLength.getHour(), that.longBreakLength.getMinute(), that.longBreakLength.getSecond());
 
                         TextView state = (TextView) activity.findViewById(R.id.stateText);
                         state.setText("Long Break");
                         RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
-                        root.setBackgroundColor(Color.parseColor("#B2B2FF"));
+                        root.setBackgroundColor(Color.parseColor("#004080"));
 
                         TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
                         currentTimeView.setText(that.currentTime.toString());
                         TextView totalTimeView = (TextView) activity.findViewById(R.id.totalTimeView);
                         totalTimeView.setText(that.totalTime.toString());
-                      //  EditText timeText = (EditText) activity.findViewById(R.id.timeText);
-                    //    timeText.setText(""+currentTimeRemaining);
+
                         handler.postDelayed(this, 1000);
                     } else if(inSprint){
                         System.out.println("short break time!!!!");
@@ -149,25 +137,20 @@ public class Timer {
                         TextView state = (TextView) activity.findViewById(R.id.stateText);
                         state.setText("Short Break");
                         RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
-                        root.setBackgroundColor(Color.parseColor("#B2B2FF"));
+                        root.setBackgroundColor(Color.parseColor("#004080"));
 
                         TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
                         currentTimeView.setText(that.currentTime.toString());
                         TextView totalTimeView = (TextView) activity.findViewById(R.id.totalTimeView);
                         totalTimeView.setText(that.totalTime.toString());
-                        //TextView overallTime = (TextView) activity.findViewById(R.id.overallTimeView);
-                        //overallTime.setText(that.getOverallTime());
-                    //    EditText timeText = (EditText) activity.findViewById(R.id.timeText);
-                      //  timeText.setText(""+currentTimeRemaining);
+
                         handler.postDelayed(this, 1000);
                     } else {
                         System.out.println("ERRRRRRROOOOOORRRRR!!!!");
                     }
 
-               //     currentTimeRemaining -= 1;
                     that.currentTime.decrement();
                     that.totalTime.decrement();
-                    //           int time = Integer.parseInt(timeText.getText().toString());
 
                 } else {
                     // this else statement handles the final case
@@ -180,7 +163,6 @@ public class Timer {
               //      handler.removeCallbacks(this);
                 }
 
-              //  overallTimeRemaining -= 1;
             }
 
 
@@ -200,17 +182,20 @@ public class Timer {
     }
 
     public void toggleTimer(boolean isChecked){
+        // isChecked refers to the toggle button
         if(isChecked){
-  //          EditText timeText = (EditText) activity.findViewById(R.id.timeText);
-//
-         //   int time = Integer.parseInt(timeText.getText().toString());
-       //     this.setOverallTimeRemaining(time);
 
             Toast.makeText(activity, "ON", Toast.LENGTH_SHORT).show();
             timerOn = true;
-
             RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
-            root.setBackgroundColor(Color.parseColor("#FF6666"));
+            TextView state = (TextView) activity.findViewById(R.id.stateText);
+            if(this.inSprint) {
+                root.setBackgroundColor(Color.parseColor("#Be0000"));
+                state.setText("Sprint");
+            } else {
+                root.setBackgroundColor(Color.parseColor("#004080"));
+            }
+
 
             handler.postDelayed(this.getRunable(), 1000);
         } else {
@@ -268,6 +253,7 @@ public class Timer {
 
         final Timer that = this;
 
+        /*
         AlertDialog.Builder alert = new AlertDialog.Builder(activity);
 
         alert.setMessage("ALARM IS ON")
@@ -280,14 +266,15 @@ public class Timer {
                 })
                 .create();
         alert.show();
+        */
 
-        if(this.firstPlay ){
-            this.soundPool.play(this.bellId, 1, 1, 1, -1, 1);
-            this.alarmOn = true;
-            this.firstPlay = false;
-        } else if(!this.alarmOn) {
-            this.soundPool.resume(this.bellId);
-            this.alarmOn = true;
+        if(that.firstPlay ){
+            that.soundPool.play(that.bellId, 1, 1, 1, -1, 1);
+            that.alarmOn = true;
+            that.firstPlay = false;
+        } else if(!that.alarmOn) {
+            that.soundPool.resume(that.bellId);
+            that.alarmOn = true;
         }
     }
 
@@ -296,5 +283,16 @@ public class Timer {
             this.soundPool.pause(this.bellId);
             this.alarmOn = false;
         }
+    }
+
+    public void reset(){
+        // when we reset the timer, we want to start in sprint stage
+        this.inSprint = true;
+        this.currentTime.setTime(this.sprintLength.getHour(), this.sprintLength.getMinute(), this.sprintLength.getSecond());
+        this.longBreakCountDown = this.longBreakFrequency;
+        TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
+        currentTimeView.setText(this.currentTime.toString());
+        TextView totalTimeView = (TextView) activity.findViewById(R.id.totalTimeView);
+        totalTimeView.setText(this.totalTime.toString());
     }
 }

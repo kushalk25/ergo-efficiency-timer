@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 public class Timer {
     boolean timerOn = false;
-    
+
     // these variable deal with sound
     SoundPool soundPool;
     int bellId;
@@ -36,6 +36,7 @@ public class Timer {
     int longBreakCountDown;
 
     boolean inSprint;
+    boolean showTime;
 
     Handler handler;
     Activity activity;
@@ -53,6 +54,7 @@ public class Timer {
         this.longBreakFrequency = 3;
         this.longBreakCountDown = this.longBreakFrequency;
         this.inSprint = true;
+        this.showTime = true;
         totalTime = new Time(0, 1, 00);
         this.currentTime = new Time(sprintLength.getHour(), sprintLength.getMinute(), sprintLength.getSecond());
 
@@ -77,10 +79,13 @@ public class Timer {
                     // stardard action
                     if(that.currentTime.stillMoreTime()){
 
-                        TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
-                        currentTimeView.setText(that.currentTime.toString());
-                        TextView totalTimeView = (TextView) activity.findViewById(R.id.totalTimeView);
-                        totalTimeView.setText(that.totalTime.toString());
+                  //      TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
+                  //      currentTimeView.setText(that.currentTime.toString());
+                  //      TextView totalTimeView = (TextView) activity.findViewById(R.id.totalTimeView);
+                 //       totalTimeView.setText(that.totalTime.toString());
+                        if(that.showTime){
+                            that.displayTime();
+                        }
 
                         handler.postDelayed(this, 1000);
 
@@ -91,11 +96,14 @@ public class Timer {
 
                         // TODO: make this it's own subroutine, or make a subroutine that handles all state changes
                         inSprint = !inSprint;
-                        that.currentTime.setTime(that.sprintLength.getHour(), that.sprintLength.getMinute(), that.sprintLength.getSecond());
-                        TextView state = (TextView) activity.findViewById(R.id.stateText);
-                        state.setText("Sprint");
-                        RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
-                        root.setBackgroundColor(Color.parseColor("#Be0000"));
+
+                        that.changeDisplay("Sprint");
+
+                   //     that.currentTime.setTime(that.sprintLength.getHour(), that.sprintLength.getMinute(), that.sprintLength.getSecond());
+                   //     TextView state = (TextView) activity.findViewById(R.id.stateText);
+                   //     state.setText("Sprint");
+                   //     RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
+                   //     root.setBackgroundColor(Color.parseColor("#Be0000"));
 
                         TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
                         currentTimeView.setText(that.currentTime.toString());
@@ -111,12 +119,14 @@ public class Timer {
                         that.playAlarm();
                         // reset longBreakCountDown
                         longBreakCountDown = longBreakFrequency;
-                        that.currentTime.setTime(that.longBreakLength.getHour(), that.longBreakLength.getMinute(), that.longBreakLength.getSecond());
 
-                        TextView state = (TextView) activity.findViewById(R.id.stateText);
-                        state.setText("Long Break");
-                        RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
-                        root.setBackgroundColor(Color.parseColor("#004080"));
+                        that.changeDisplay("Long Break");
+                        //that.currentTime.setTime(that.longBreakLength.getHour(), that.longBreakLength.getMinute(), that.longBreakLength.getSecond());
+
+                      //  TextView state = (TextView) activity.findViewById(R.id.stateText);
+                     //   state.setText("Long Break");
+                     //   RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
+                     //   root.setBackgroundColor(Color.parseColor("#004080"));
 
                         TextView currentTimeView = (TextView) activity.findViewById(R.id.currentTimeView);
                         currentTimeView.setText(that.currentTime.toString());
@@ -203,6 +213,23 @@ public class Timer {
             timerOn = false;
             handler.removeCallbacks(this.getRunable());
         }
+    }
+
+    public void changeDisplay(String phase){
+        this.currentTime.setTime(this.sprintLength.getHour(), this.sprintLength.getMinute(), this.sprintLength.getSecond());
+        TextView state = (TextView) this.activity.findViewById(R.id.stateText);
+        state.setText(phase);
+        RelativeLayout root = (RelativeLayout) activity.findViewById(R.id.rootLayout);
+        if(phase.equals("Sprint")) {
+            root.setBackgroundColor(Color.parseColor("#Be0000"));
+        }
+    }
+
+    public void disableTimeDisplay(){
+         this.showTime = false;
+    }
+    public void enableTimeDisplay(){
+        this.showTime = true;
     }
 
     public Time getTotalTime() {

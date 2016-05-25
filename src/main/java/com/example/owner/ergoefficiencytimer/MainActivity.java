@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
         // editing is true when we move to the edit page (for now the only other page)
         editing = true;
+        myTimer.disableTimeDisplay();
         setContentView(R.layout.edit_page);
         editPage.loadTimerValues();
     }
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         if(editing){
             editPage.saveValues();
             editing = false;
+            myTimer.enableTimeDisplay();
         }
 
         setContentView(R.layout.activity_main);
@@ -106,4 +108,5 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
         myTimer.toggleTimer(isChecked);
     }
+
 }

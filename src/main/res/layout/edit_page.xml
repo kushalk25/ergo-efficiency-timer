@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.owner.veganapp.MainActivity">
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView01"
@@ -351,9 +358,33 @@
         android:inputType="number"
         android:id="@+id/longFrequency"
         android:layout_below="@+id/textView18"
-        android:layout_alignParentBottom="true"
+
         android:layout_centerHorizontal="true"
         android:textColor="#eee9e9"/>
+
+    <!-- took this out for the time being:
+    android:layout_alignParentBottom="true" -->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/save"
+        android:layout_below="@+id/longFrequency"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:checked="false"
+        android:onClick="onClickSave"/>
+
+    <!-- this will be replaced by a footer -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:id="@+id/imageView6"
+        android:src="#004080"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/save"
+        android:layout_weight="1.08" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -369,3 +400,5 @@
 </RelativeLayout>
 
     </ScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>

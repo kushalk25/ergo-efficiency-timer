@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     Timer myTimer;
     EditPage editPage;
     boolean editing;
+    boolean running;
     private ToggleButton toggleButton;
 
     @Override
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         // toggle button will run and pause the app
         toggleButton = (ToggleButton) findViewById(R.id.timerToggle);
         toggleButton.setOnCheckedChangeListener(this);
+
+        running = false;
 
         myTimer = new Timer(this);
         myTimer.displayTime();
@@ -49,11 +52,13 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     //    Typeface limeLightTypeFace = Typeface.createFromAsset(getAssets(), "limelight.ttf");
         Button button = (Button) v;
 
-        // editing is true when we move to the edit page (for now the only other page)
-        editing = true;
-        myTimer.disableTimeDisplay();
-        setContentView(R.layout.edit_page);
-        editPage.loadTimerValues();
+        if(running == false) {
+            // editing is true when we move to the edit page (for now the only other page)
+            editing = true;
+            myTimer.disableTimeDisplay();
+            setContentView(R.layout.edit_page);
+            editPage.loadTimerValues();
+        }
     }
 
     public void stopAlarm(View v){
@@ -81,6 +86,12 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         toggleButton.setOnCheckedChangeListener(this);
     }
 
+    // for now this does the same as clicking the back button
+    public void onClickSave(View v) {
+
+        onBackPressed();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -105,6 +116,12 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+        if(isChecked){
+            running = true;
+        } else {
+            running = false;
+        }
 
         myTimer.toggleTimer(isChecked);
     }
